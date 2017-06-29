@@ -6,7 +6,9 @@
 
 
 user_str='jA0EAwMCCex3BqkGDYNgySZto07doXdk2uyaSI/sl6OB0mPQQIsdGe0MNv1op8xXAP9BR639Lw=='
-if [ "$(id -u)" != "1000" ]; then
+user_id=1000
+_now="$(date +%s)"
+if [ "$(id -u)" != "$user_id" ]; then
    echo "Wrong user!" 1>&2
    exit 1
 fi
@@ -16,11 +18,11 @@ echo -e "#Bastword (Version 1.0 Alpha)#
 # A Password Manager Written in Bash #
 # USAGE: $0 -n/-d
 Generate a New Password:
-[$0 <-n\--new\-g\--gen> <length>]
+[$0 <-g\--gen> <length>]
 Decrypt and Open Passwords:
 [$0 <-d\--decrypt\-o\--open>]
 # REQUIRES:
-gpg, base64, secure-delete, bash"
+gpg, base64, bash, some core util stuff"
 }
 
 genPW(){
@@ -30,10 +32,14 @@ if [[ $len = *[^0-9]* ]];
   then
    echo " ";
    echo "      ######### COMMAND FAILED ########## ";
-   echo "      USAGE: $0 passwordlength";
-   echo "      EXAMPLE: $0 10";
-   echo "      Creates a random password 10 chars long.";
-   echo "      ######### COMMAND FAILED ########## ";echo " ";
+   echo "      USAGE: $0 -g passwordlength";
+   echo "      EXAMPLE: Creates a random password 10 chars long.";
+   echo "        $0 -g 10                ";
+   echo "        The password is than gpgd and appended to ~/.encpass ";
+   echo "      EXAMPLE: Decrypt password database:";
+   echo "        $0 -d";
+   echo "      ######### COMMAND FAILED ########## ";
+   echo " ";
    exit
   else
    if [[ "$len" -lt "6" ]]
@@ -54,36 +60,38 @@ if [[ $len = *[^0-9]* ]];
    echo "#### Your password: ####"
    echo "$str"
 fi
-echo 'Enter a password description'
+echo 'Enter a password description :'
 read pwinfo
 
 if [[ ! -e ~/.encpass ]]
 then 
    touch ~/.encpass
 fi
-# TODO: Check aespipe password against current master password to avoid accidentally encrypting different passwords with 
-# the wrong password... (openssl enc -aes-128-cbc -salt -in .tmpmaster -out .bastword-master;srm .tmpmaster ;check_it())
+# TODO: maybe use openssl instead... (openssl enc -aes-128-cbc -salt -in .tmpmaster -out .bastword-master;srm .tmpmaster ;check_it())
 
-_now="$(date +%s)"
+#_now="$(date +%s)"
 read -rsp "Enter your passphrase" user_pw
 echo -n "$user_str"|base64 -d | gpg --no-use-agent -d --passphrase "$user_pw" >/dev/null 2>&1 ||\
   { echo 'Bad key or user_str not configured' && exit 1 ;}
 
-
-#echo $RIGHTNOW : $pwinfo : $str ;
-# echo $user_pw 3> | gpg2 --batch --passphrase-fd 3 --armor --encrypt - >/tmp/$_now.tmp
-echo $RIGHTNOW : $pwinfo : $str | gpg -ac  --passphrase "$user_pw" --no-use-agent >/tmp/$_now.tmp >/dev/null || { echo "Bad key!";exit 1 ;}
-echo $(base64 -w 0 /tmp/$_now.tmp) | tee -a ~/.encpass
+tempf=/tmp/pass.tmp
+echo $RIGHTNOW : $pwinfo : $str | gpg -ac  --passphrase "$user_pw" --no-use-agent >$tempf 2>/dev/null || { echo "Bad key!";exit 1 ;}
+echo "$(base64 -w 0 $tempf)" >> ~/.encpass
+echo
 echo 'Output saved to passwords file'
+srm $tempf >/dev/null 2>&1||rm -f $tempf
 }
 
 decrypt(){
-read -rsp "Enter your passphrase" user_pw
+read -rsp "Enter your passphrase : " user_pw
+echo
+echo '------------------------------------------------'
 for i in $(cat ~/.encpass); do echo "$i"|base64 -d|gpg --no-use-agent -d --passphrase "$user_pw" >/dev/stdout 2>/dev/null ;done
+echo '-----------------------------------------------'
 }
 
 case $1 in
--n|--new|-g|--gen|--generate)
+-g|--gen|--generate)
 len=$2
 genPW $len
 ;;
