@@ -20,7 +20,7 @@ Generate a New Password:
 Decrypt and Open Passwords:
 [$0 <-d\--decrypt\-o\--open>]
 # REQUIRES:
-aespipe, base64, secure-delete, bash, vi, mktemp"
+gpg, base64, secure-delete, bash"
 }
 
 genPW(){
