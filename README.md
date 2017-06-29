@@ -32,14 +32,7 @@ Output saved to passwords file
 - Decrypt passwords stored in ~/.encpass
 
 <pre>
-anon@dev:~/Dev$ bash bashword2 -g 12
-#### Your password: ####
-0flTh!nPy83=
-Enter a password description :
-test 2
-Enter your passphrase
-Output saved to passwords file
-anon@dev:~/Dev$ bash bashword2 -d
+anon@dev:~/Dev$ bash bashword -d
 Enter your passphrase : 
 ------------------------------------------------
 17:14 06/29/2017 : test : aadyl9QifC
