@@ -24,15 +24,20 @@ if [ "$(id -u)" != "$user_id" ]; then
 fi
 
 usage(){
-echo -e "#Bashword (Version 2.0 Beta)#
-# A Password Manager Written in Bash #
+echo -e "#####################################
+# Bashword (Version 2.0 Beta)
+# A Password Manager Written in Bash 
+#####################################
 # USAGE: $0 -n/-d
-Generate a New Password:
-[$0 <-g\--gen> <length>]
-Decrypt and Open Passwords:
-[$0 <-d\--decrypt\-o\--open>]
+
+# Generate a New Password:
+  [$0 <-g\--gen> <length>]
+
+# Decrypt and Open Passwords:
+  [$0 <-d\--decrypt\-o\--open>]
+
 # REQUIRES:
-gpg, base64, bash, some core util stuff"
+  gpg, base64, bash, echo (with -en)"
 }
 
 genPW(){
