@@ -1,11 +1,21 @@
 #!/bin/bash
 ####################################################
-# BASH Password Manager - Darkerego 2017
+echo "╔╗ ╔═╗╔═╗╦ ╦╦ ╦╔═╗╦═╗╔╦╗";
+echo "╠╩╗╠═╣╚═╗╠═╣║║║║ ║╠╦╝ ║║";
+echo "╚═╝╩ ╩╚═╝╩ ╩╚╩╝╚═╝╩╚══╩╝";      
+echo "Bash powered password manager ~ Darkerego 2017";
 ####################################################
 #
 
+# a base64 encoded raw gpg message. set this first. use `gpg -c|base64`
+# when you generate a new password, first the script prompts you for your
+# master password and makes sure it can decrypt this strings first before 
+# continueing, because all passwords in the database need to be encrypted
+# with the same password for this to work correctly.
 
 user_str='jA0EAwMCCex3BqkGDYNgySZto07doXdk2uyaSI/sl6OB0mPQQIsdGe0MNv1op8xXAP9BR639Lw=='
+
+# also we can limit this to a certain user id
 user_id=1000
 _now="$(date +%s)"
 if [ "$(id -u)" != "$user_id" ]; then
@@ -14,7 +24,7 @@ if [ "$(id -u)" != "$user_id" ]; then
 fi
 
 usage(){
-echo -e "#Bastword (Version 1.0 Alpha)#
+echo -e "#Bashword (Version 2.0 Beta)#
 # A Password Manager Written in Bash #
 # USAGE: $0 -n/-d
 Generate a New Password:
@@ -26,8 +36,7 @@ gpg, base64, bash, some core util stuff"
 }
 
 genPW(){
-
-#if [[ -z "$2" || $2 = *[^0-9]* ]];
+set +a # dont export variables
 if [[ $len = *[^0-9]* ]];
   then
    echo " ";
@@ -50,7 +59,7 @@ if [[ $len = *[^0-9]* ]];
    
    RIGHTNOW=$(date +"%R %x")
    pwdlen=$len
-   char=(0 1 2 3 4 5 6 7 8 9 a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V X W Y Z _ - + % '$' '.' '^' '!' '`' '~' '#' '&' '*' '(' ')' '|' '{' '}' '[' ']' '"' '<' '>' '=' ',' ':' '?')
+   char=(0 1 2 3 4 5 6 7 8 9 a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V X W Y Z _ - + % '$' '.' '^' '!' '`' '~' '#' '&' '*' '(' ')' '|' '{' '}' '[' ']' '\' '<' '>' '=' ',' ':' '?')
    max=${#char[*]}
    for i in `seq 1 $pwdlen`
       do
@@ -61,13 +70,13 @@ if [[ $len = *[^0-9]* ]];
    echo "$str"
 fi
 echo 'Enter a password description :'
-read pwinfo
+read -r pwinfo
 
 if [[ ! -e ~/.encpass ]]
 then 
-   touch ~/.encpass
+   >~/.encpass
 fi
-# TODO: maybe use openssl instead... (openssl enc -aes-128-cbc -salt -in .tmpmaster -out .bastword-master;srm .tmpmaster ;check_it())
+# TODO: maybe use openssl instead... (openssl enc -aes-128-cbc -salt -in .tmpmaster -out .bastword-master;srm .tmpmaster)
 
 #_now="$(date +%s)"
 read -rsp "Enter your passphrase" user_pw
@@ -83,6 +92,7 @@ srm $tempf >/dev/null 2>&1||rm -f $tempf
 }
 
 decrypt(){
+set +a # dont export variables
 read -rsp "Enter your passphrase : " user_pw
 echo
 echo '------------------------------------------------'
