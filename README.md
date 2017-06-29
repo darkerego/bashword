@@ -40,8 +40,6 @@ Enter your passphrase :
 17:15 06/29/2017 : whatever account : u=]wE<c_f
 17:16 06/29/2017 : whatever other acct : QaB^)s7xj
 17:24 06/29/2017 : testing this script : o>}{A#lo1c1y
------------------------------------------------
-
 </pre>
 
 # Note : this is a POC , do not use in production without caution
