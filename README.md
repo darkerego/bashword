@@ -19,7 +19,6 @@ echo $user_str # place this in the user_str variable in script
 - Generate a password and save to encrypted file
 
 <pre>
-
 anon@dev:~/Dev$ bash ./bashword -g 12
 #### Your password: ####
 o>}{A#lo1c1y
@@ -42,4 +41,4 @@ Enter your passphrase :
 17:24 06/29/2017 : testing this script : o>}{A#lo1c1y
 </pre>
 
-# Note : this is a POC , do not use in production without caution
+### Note : this is a POC , do not use in production without caution
