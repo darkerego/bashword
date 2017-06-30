@@ -14,8 +14,8 @@ anon@dev:~$ bash bashword.bash -g 10
 ╠╩╗╠═╣╚═╗╠═╣║║║║ ║╠╦╝ ║║
 ╚═╝╩ ╩╚═╝╩ ╩╚╩╝╚═╝╩╚══╩╝
 Bash powered password manager ~ Darkerego 2017
-No config file found, would you like to create one now? (yes/no)yes
-Enter a unique string to be encrypted with your passphrase. This string must be decrypted every time you generate a new password or decrypt your database.This is my string!
+No config file found, would you like to create one now? (yes/no) : yes
+Enter a unique string to be encrypted with your passphrase. This string must be decrypted every time you generate a new password or decrypt your database : This is my string!
 File `userkey.gpg' exists. Overwrite? (y/N) y
 Your unique user string : 
 jA0EAwMCFSAVo0XOPylgyS6t3pHAVbhvYx7w7YfA2jWxrcltfW4dlttCuLSKvTGxqTKrr8/2EkXKAqNNqHVm
