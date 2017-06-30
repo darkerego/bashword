@@ -14,14 +14,16 @@ echo "Bash powered password manager ~ Darkerego 2017";
 # continueing, because all passwords in the database need to be encrypted
 # with the same password for this to work correctly.
 
-user_str='jA0EAwMCCex3BqkGDYNgySZto07doXdk2uyaSI/sl6OB0mPQQIsdGe0MNv1op8xXAP9BR639Lw==' # example password "lol"
-user_id=1000 # also we can limit this to a certain user id
+# example password "lol"
+user_str='jA0EAwMCCex3BqkGDYNgySZto07doXdk2uyaSI/sl6OB0mPQQIsdGe0MNv1op8xXAP9BR639Lw=='
+# also we can limit this to a certain user id
+user_id=1000
 
 
 
 genconf(){
 conffile=~/.bashword/bashword.conf
-read -rp "Enter a unique string to be encrypted with your passphrase. This string must be decrypted every time you generate a new password or decrypt your database." myKey
+read -rp "Enter a unique string to be encrypted with your passphrase. This string must be decrypted every time you generate a new password or decrypt your database : " myKey
 cd $HOME
 rm -f $userkey $userkey.gpg
 echo "$myKey" > userkey
@@ -139,7 +141,7 @@ reset >/dev/null 2>&1 || clear
 
 
 
-# program start
+
 
 _now="$(date +%s)"
 if [ "$(id -u)" != "$user_id" ]; then
@@ -151,8 +153,8 @@ test -d ~/.bashword || mkdir ~/.bashword
 bwdb="/home/$USER/.bashword/.encpass"
 bwconf="/home/$USER/.bashword/bashword.conf"
 test -e $bwdb||>$bwdb
-chmod 700 ~/.bashword
-chmod 600 "$bwconf"
+chmod 700 ~/.bashword >/dev/null 2>&1
+chmod 600 "$bwconf" >/dev/null 2>&1
 
 
 
@@ -161,7 +163,7 @@ if [[ -f "$bwconf"  ]];then
   . "$bwconf"
 
 else
-  read -rp 'No config file found, would you like to create one now? (yes/no)' create_conf
+  read -rp 'No config file found, would you like to create one now? (yes/no) : ' create_conf
   if [[ "$create_conf" == "yes" ]] ; then
     genconf
   else
