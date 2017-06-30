@@ -14,7 +14,6 @@ anon@dev:~$ bash bashword.bash -g 10
 ╠╩╗╠═╣╚═╗╠═╣║║║║ ║╠╦╝ ║║
 ╚═╝╩ ╩╚═╝╩ ╩╚╩╝╚═╝╩╚══╩╝
 Bash powered password manager ~ Darkerego 2017
-chmod: cannot access ‘/home/anon/.bashword/bashword.conf’: No such file or directory
 No config file found, would you like to create one now? (yes/no)yes
 Enter a unique string to be encrypted with your passphrase. This string must be decrypted every time you generate a new password or decrypt your database.This is my string!
 File `userkey.gpg' exists. Overwrite? (y/N) y
