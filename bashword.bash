@@ -84,7 +84,7 @@ fi
 # TODO: maybe use openssl instead... (openssl enc -aes-128-cbc -salt -in .tmpmaster -out .bastword-master;srm .tmpmaster)
 
 #_now="$(date +%s)"
-read -rsp "Enter your passphrase" user_pw
+read -rsp "Enter your passphrase : " user_pw
 echo -n "$user_str"|base64 -d | gpg --no-use-agent -d --passphrase "$user_pw" >/dev/null 2>&1 ||\
   { echo 'Bad key or user_str not configured' && exit 1 ;}
 
