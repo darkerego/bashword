@@ -36,7 +36,7 @@ Enter your passphrase :
 ------------------------------------------------
 17:14 06/29/2017 : testing this script : o>}{A#lo1c1y
 17:14 06/29/2017 : test : u4[l(NXRVW
-17:15 06/29/2017 : whatever account : u=]wE<c_f
+17:15 06/29/2017 : whatever account : u=\]wE<c_f
 17:16 06/29/2017 : whatever other acct : QaB^)s7xj
 </pre>
 
