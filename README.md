@@ -6,14 +6,39 @@
 ### Usage:
 
 
-- Set your $user_str variable near top of script:
+- First run: create a config file
 
 <pre>
-echo "this is my key" > userkey
-gpg -c userkey >userkey.gpg
-user_str=$(base64 -w 0 userkey.gpg)
-echo "this is your user string:"
-echo $user_str # place this in the user_str variable in script
+anon@dev:~$ bash bashword.bash -g 10
+╔╗ ╔═╗╔═╗╦ ╦╦ ╦╔═╗╦═╗╔╦╗
+╠╩╗╠═╣╚═╗╠═╣║║║║ ║╠╦╝ ║║
+╚═╝╩ ╩╚═╝╩ ╩╚╩╝╚═╝╩╚══╩╝
+Bash powered password manager ~ Darkerego 2017
+chmod: cannot access ‘/home/anon/.bashword/bashword.conf’: No such file or directory
+No config file found, would you like to create one now? (yes/no)yes
+Enter a unique string to be encrypted with your passphrase. This string must be decrypted every time you generate a new password or decrypt your database.This is my string!
+File `userkey.gpg' exists. Overwrite? (y/N) y
+Your unique user string : 
+jA0EAwMCFSAVo0XOPylgyS6t3pHAVbhvYx7w7YfA2jWxrcltfW4dlttCuLSKvTGxqTKrr8/2EkXKAqNNqHVm
+Your config file has been created succesfully
+#### Your password: ####
+>tQ88QWXE\
+Enter a password description :
+this is my first password
+Enter your passphrase : 
+Output saved to passwords file
+anon@dev:~$ bash bashword.bash -d
+╔╗ ╔═╗╔═╗╦ ╦╦ ╦╔═╗╦═╗╔╦╗
+╠╩╗╠═╣╚═╗╠═╣║║║║ ║╠╦╝ ║║
+╚═╝╩ ╩╚═╝╩ ╩╚╩╝╚═╝╩╚══╩╝
+Bash powered password manager ~ Darkerego 2017
+Found /home/anon/.bashword/bashword.conf , importing your configuration...
+Enter your passphrase : 
+------------------------------------------------
+18:14 06/30/2017 : this is my first password : >tQ88QWXE\
+-----------------------------------------------
+Press enter to reset the console...
+
 </pre>
 
 - Generate a password and save to encrypted file
