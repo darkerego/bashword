@@ -13,7 +13,11 @@ anon@dev:~$ bash bashword.bash -g 10
 ╔╗ ╔═╗╔═╗╦ ╦╦ ╦╔═╗╦═╗╔╦╗
 ╠╩╗╠═╣╚═╗╠═╣║║║║ ║╠╦╝ ║║
 ╚═╝╩ ╩╚═╝╩ ╩╚╩╝╚═╝╩╚══╩╝
-Bash powered password manager ~ Darkerego 2017
+
+###### Bash powered password manager ~ Darkerego 2017
+DEMO: Generating a password....
+
+./bashword -g
 No config file found, would you like to create one now? (yes/no) : yes
 Enter a unique string to be encrypted with your passphrase. This string must be decrypted every time you generate a new password or decrypt your database : This is my string!
 File `userkey.gpg' exists. Overwrite? (y/N) y
@@ -55,6 +59,8 @@ Output saved to passwords file
 - Decrypt passwords stored in ~/.encpass
 
 <pre>
+DEMO: Opening your password database....
+
 anon@dev:~/Dev$ bash bashword -d
 Enter your passphrase : 
 ------------------------------------------------
